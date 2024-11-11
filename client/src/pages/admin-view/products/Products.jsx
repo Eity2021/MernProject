@@ -1,7 +1,5 @@
-
-
 export default function AdminProducts() {
   return (
-    <div>Products</div>
+    <div>AdminProducts</div>
   )
 }
