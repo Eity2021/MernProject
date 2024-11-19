@@ -14,15 +14,22 @@ import ShoppingListing from "./pages/shopping-view/listing";
 import CheckOutPage from "./pages/shopping-view/checkoutPage";
 import AccountPage from "./pages/shopping-view/accountPage";
 import ShoppingLayout from "./components/shopping-view/Layout";
+import CheckAuth from "./components/common/CheckAuth";
+import UnAuthPage from "./pages/unauth-page";
 
 
 function App() {
+  const isAuthenticated = false;
+  const user = {
+    name:"Sangam",
+    role:"admin"
+  }
   return (
     <>
       <div>
         <Routes>
           {/* <Route path="/" element={<AuthLayout></AuthLayout>}>   </Route> */}
-          <Route path="/auth" element={<AuthLayout></AuthLayout>}>
+          <Route path="/auth" element={<CheckAuth isAuthenticated={isAuthenticated} user={user}><AuthLayout></AuthLayout></CheckAuth>}>
             <Route path="login" element={<AuthLogin></AuthLogin>}></Route>
             <Route
               path="register"
@@ -30,9 +37,7 @@ function App() {
             ></Route>
           </Route>
 
-          <Route path="/admin" element={<AdminLayout></AdminLayout>}>
-
-
+          <Route path="/admin" element={<CheckAuth isAuthenticated={isAuthenticated} user={user}><AdminLayout></AdminLayout></CheckAuth>}>
             <Route
               path="dashboard"
               element={<AdminDashboard></AdminDashboard>}
@@ -46,40 +51,26 @@ function App() {
               path="features"
               element={<AdminFeatures></AdminFeatures>}
             ></Route>
-
-
-
           </Route>
 
+          <Route path="/shop" element={<CheckAuth isAuthenticated={isAuthenticated} user={user}><ShoppingLayout></ShoppingLayout></CheckAuth>}>
+            <Route path="home" element={<ShoppingHome></ShoppingHome>}></Route>
 
-          <Route path="/shop"  element={<ShoppingLayout></ShoppingLayout>}>
-          
-       
-          <Route
-              path="home"
-              element={<ShoppingHome></ShoppingHome>}
-            ></Route>
-          
-          <Route
+            <Route
               path="listen"
               element={<ShoppingListing></ShoppingListing>}
             ></Route>
-          
-          <Route
-              path="account"
-              element={<AccountPage></AccountPage>}
-            ></Route>
-          
-          <Route
+
+            <Route path="account" element={<AccountPage></AccountPage>}></Route>
+
+            <Route
               path="checkOutPage"
               element={<CheckOutPage></CheckOutPage>}
             ></Route>
-          
-          <Route
-              path="*"
-              element={<NotFoundPage></NotFoundPage>}
-            ></Route>
+
+            <Route path="*" element={<NotFoundPage></NotFoundPage>}></Route>
           </Route>
+            <Route path="/authPage" element={<UnAuthPage></UnAuthPage>}></Route>
         </Routes>
       </div>
     </>
