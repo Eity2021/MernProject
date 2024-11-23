@@ -2,7 +2,35 @@
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/Button";
+import { useRegisterMutation } from "@/features/auth/authApi";
+import { useToast } from "@/hooks/use-toast";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 export default function Registration() {
+  // const [error, setError] = useState("");
+  const [resRegister, { data, isLoading, error }] = useRegisterMutation();
+  console.log("data", data);
+  const { toast } = useToast();
+  // toast({
+  //   title: "Scheduled: Catch up",
+  //   description: "Friday, February 10, 2023 at 5:57 PM",
+  // })
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (data?.code === 200) {
+      toast({
+        title: data?.message,
+      });
+      navigate("/auth/login");
+    } else if (data?.code === 208) {
+      toast({
+        title: data?.message,
+        variant: "destructive",
+      });
+    }
+  }, [data, navigate, toast]);
+
   const {
     register,
     handleSubmit,
@@ -10,7 +38,17 @@ export default function Registration() {
     // formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (formData) => {
+    resRegister({
+      userName: formData.userName,
+      email: formData.email,
+      password: formData.password,
+    });
+
+    // if(data?.code){
+    //   navigate("/auth.login");
+    // }
+  };
   return (
     <div className="px-56 pt-80">
       <div>
@@ -21,7 +59,7 @@ export default function Registration() {
             </h2>
             <p className="font-[poppins] font-medium text-[18px]">
               Already have an account{" "}
-              <span className="cursor-pointer underline font-bold">Login</span>{" "}
+              <span className="cursor-pointer underline font-bold">Login</span>
             </p>
           </div>
           <div>
@@ -45,7 +83,7 @@ export default function Registration() {
                 <Input
                   type="email"
                   placeholder="Enter Email"
-                  {...register("Email", { required: true })}
+                  {...register("email", { required: true })}
                 />
               </div>
 
