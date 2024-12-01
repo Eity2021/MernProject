@@ -1,5 +1,5 @@
 import { useRoutes } from 'react-router-dom';
-import routes from './routes'; // Import the route configuration
+import routes from './routes'; 
 
 function AppRoutes() {
   const element = useRoutes(routes);
@@ -7,3 +7,4 @@ function AppRoutes() {
 }
 
 export default AppRoutes;
+ 
