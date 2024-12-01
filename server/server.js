@@ -13,10 +13,10 @@ mongoose
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-app.use(
+app. use(
     cors({
-        origin: 'http://localhost:3000',
-        methods:['GET', 'POST' , 'DELETE', 'PUT'],
+        origin: 'https://mern-project-client-pi.vercel.app/',
+        methods:['GET', 'POST', 'DELETE', 'PUT'],
         allowedHeaders : [
             "Content-Type",
             "Authorization",
