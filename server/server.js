@@ -15,7 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 app. use(
     cors({
-        origin: 'https://mern-project-client-pi.vercel.app/',
+        origin: 'https://mern-project-client-pi.vercel.app',
         methods:['GET', 'POST', 'DELETE', 'PUT'],
         allowedHeaders : [
             "Content-Type",
